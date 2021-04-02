@@ -8,19 +8,19 @@ import {
 } from "sequelize-typescript";
 import { TableInfo } from "./TableInfo";
 
-@Table({ tableName: "order" })
+@Table({ tableName: "Order" })
 export class Order extends Model {
   @PrimaryKey
   @AutoIncrement
   @Column
-  id: number;
+  ID: number;
 
   @Column
-  people_name: string;
+  PeopleName: string;
 
   @Column
-  complete: boolean;
+  Complete: boolean;
 
   @HasOne(() => TableInfo, "FK_TableInfo_PeopleOrder")
-  table_info: TableInfo;
+  TableInfo: TableInfo;
 }

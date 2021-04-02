@@ -5,9 +5,9 @@ import { Order } from "../models/Order";
 export default new (class OrderService {
   public async CreateOne(model: CreateOrderDTO) {
     return await Order.create({
-      people_name: model.people_name,
-      table_info: model.table_info,
-      complete: model.complete,
+      PeopleName: model.PeopleName,
+      TableInfo: model.TableInfo,
+      Complete: model.Complete,
     });
   }
 
@@ -22,18 +22,18 @@ export default new (class OrderService {
   public async UpdateOne(model: OrderDTO) {
     return await Order.update(
       {
-        people_name: model.people_name,
-        table_info: model.table_info,
-        complete: model.complete,
+        PeopleName: model.PeopleName,
+        TableInfo: model.TableInfo,
+        Complete: model.Complete,
       },
-      { where: { id: model.id } }
+      { where: { id: model.ID } }
     );
   }
 
   public DeleteOne(id: number) {
     return Order.destroy({
       where: {
-        id: id,
+        ID: id,
       },
     });
   }
