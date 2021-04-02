@@ -1,7 +1,7 @@
 import { AutoIncrement, Column, Model, PrimaryKey, Table } from "sequelize-typescript";
 
-@Table
-export class location extends Model {
+@Table({tableName: "location"})
+export class Location extends Model {
   @AutoIncrement
   @PrimaryKey
   @Column

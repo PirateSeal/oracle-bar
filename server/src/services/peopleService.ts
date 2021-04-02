@@ -1,12 +1,12 @@
 import { PeopleDTO } from "../dtos/peopleDTO";
-import { people } from "../models/people";
-import {location} from "../models/location"
+import { People } from "../models/People";
+import {Location} from "../models/Location"
 
 export default class PeopleService {
   async save(model: PeopleDTO) {
-    let p = new people()
+    let p = new People()
     p.name = model.name
-    let table = await location.findByPk(model.tableId);
+    let table = await Location.findByPk(model.tableId);
     p.tableRef = table;
     p.save()
   }
