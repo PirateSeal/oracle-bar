@@ -8,5 +8,5 @@ export interface Cocktail {
     name: string;
     price: number;
     description: string;
-    picture: string;
+    photo: string;
 }
