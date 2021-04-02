@@ -1,9 +1,9 @@
 import { Table, Column, Model, PrimaryKey, AutoIncrement, HasOne } from 'sequelize-typescript'
-import { location } from './location'
+import { Location } from './Location'
 
-@Table
-export class people extends Model {
-  
+@Table({tableName: "people"})
+export class People extends Model {
+
   @PrimaryKey
   @AutoIncrement
   @Column
@@ -12,6 +12,6 @@ export class people extends Model {
   @Column
   name: string
 
-  @HasOne(() => location, "FK_People_TableRef")
-  tableRef: location  
+  @HasOne(() => Location, "FK_People_TableRef")
+  tableRef: Location
 }
