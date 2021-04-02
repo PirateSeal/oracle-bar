@@ -1,6 +1,6 @@
-import Order from "@/models/Order";
+import { PeopleOrder } from "@/models/peopleOrder";
 
-export async function createAsync(order: Order) {
+export async function createAsync(order: PeopleOrder) {
   throw "Not implemented";
 }
 export async function findAllAsync() {
