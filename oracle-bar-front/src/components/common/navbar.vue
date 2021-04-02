@@ -3,7 +3,12 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">Barocles</a>
-        <button  type="button" class="btn btn-primary">Commander</button>
+
+        <router-link to="/order">
+          <button type="button" class="btn btn-primary">
+            Commander
+          </button></router-link
+        >
       </div>
     </nav>
   </div>
