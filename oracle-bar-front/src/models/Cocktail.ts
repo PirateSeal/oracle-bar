@@ -7,4 +7,6 @@ export interface Cocktail {
     cocktailId: number;
     name: string;
     price: number;
+    description: string;
+    picture: string;
 }

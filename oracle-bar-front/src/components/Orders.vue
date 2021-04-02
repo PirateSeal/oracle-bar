@@ -63,7 +63,7 @@ export default class Orders extends Vue {
   private order: Order = { peopleId: null, cocktails: [] };
   private tableId: number = null;
   private peopleId: number = null;
-  private commandeId: number = null;
+  private orderId: number = null;
 
   async mounted() {
     this.tables = await this.tableService.findAll();
@@ -73,7 +73,7 @@ export default class Orders extends Vue {
   //TODO retrive tables from TableService.findAll
   //TODO retrive coctails from cocktailService.findAll
   prepareOrder(cocktails: Array<CocktailQuantity>) {
-    this.order = {commandeId: this.commandeId, cocktails };
+    this.order = {orderId: this.orderId, cocktails };
   }
   onSubmit() {
     

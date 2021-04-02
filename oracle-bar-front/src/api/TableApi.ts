@@ -1,5 +1,3 @@
-const axios = require('axios').default;
+import axiosInstance from '../axios';
 
-export function findAllAsync() {
-    throw 'Not implemented';
-}
+export const findAllTables = async () => (await axiosInstance.get('/tables')).data

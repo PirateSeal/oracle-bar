@@ -1,15 +1,20 @@
-import { findAllAsync, createAsync } from "@/api/cocktailApi";
-import  {Cocktail}  from "@/models/Cocktail";
+import { findAllCocktails, getCocktailsOrdered, prepareCocktail   } from "@/api/cocktailApi";
 
 export default class CocktailService {
 
-    async create(cocktail : Cocktail) {
-        throw 'Not implemented';
-    // await createAsync(cocktail);
+    async findAll() {
+      const cocktails =  await findAllCocktails();
+      return cocktails;
   }
 
-    async findAll() {
-        throw 'Not implemented';
-    // return await findAllAsync();
+  async findAllOrderedCocktails() {
+    const allOrderedCocktails =  await getCocktailsOrdered();
+    return allOrderedCocktails;
+
+  }
+
+  async cocktailIsReady (cocktailCommandeId: number) {
+    const allOrderedCocktails =  await prepareCocktail(cocktailCommandeId);
+    return allOrderedCocktails;
   }
 }
