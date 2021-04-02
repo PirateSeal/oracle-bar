@@ -2,19 +2,18 @@ import express from 'express';
 
 
 import { Sequelize } from 'sequelize-typescript'
-import { People } from './models/people';
-import { TableRef } from './models/table';
 
 const sequelize = new Sequelize({
-  database: 'some_db',
-  dialect: 'sqlite',
-  username: 'root',
-  password: '',
-  storage: ':memory:',
+  database: 'ORACLE_DB',
+  dialect: 'postgres',
+  username: 'DB_USER',
+  password: 'azertyuiop',
+  host: 'localhost',
+  port: 5432,
   models: [__dirname + '/models'] // or [Player, Team],
 })
 
-sequelize.addModels([People, TableRef])
+sequelize.addModels(['./models/*.ts'])
 
 
 const app = express();

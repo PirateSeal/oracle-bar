@@ -1,16 +1,17 @@
-import { Table, Column, Model, HasMany, PrimaryKey, AutoIncrement, HasOne } from 'sequelize-typescript'
-import { TableRef } from './table'
+import { Table, Column, Model, PrimaryKey, AutoIncrement, HasOne } from 'sequelize-typescript'
+import { location } from './location'
 
-@Table({tableName: "people"})
-class People extends Model {
-  @Column
+@Table
+export class people extends Model {
+  
   @PrimaryKey
   @AutoIncrement
+  @Column
   id: string
 
   @Column
   name: string
 
-  @HasOne(() => TableRef, "FK_People_TableRef")
-  tableRef: TableRef  
+  @HasOne(() => location, "FK_People_TableRef")
+  tableRef: location  
 }
