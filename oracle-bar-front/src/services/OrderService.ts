@@ -1,9 +1,9 @@
-import { createAsync } from '@/api/CocktailApi';
-import { PeopleOrder } from '@/models/peopleOrder';
+import { createAsync } from '@/api/cocktailApi';
+import  Order  from '@/models/Order';
 
 export default class OrderService{
 
-    async create(order: PeopleOrder) {
+    async create(order: Order) {
         createAsync(order);
     }
 }

@@ -1,8 +1,9 @@
-import { findAllAsync, createAsync } from "@/api/CocktailApi";
+import { findAllAsync, createAsync } from "@/api/cocktailApi";
+import  {Cocktail}  from "@/models/Cocktail";
 
 export default class CocktailService {
 
-    async create(cocktail) {
+    async create(cocktail : Cocktail) {
         throw 'Not implemented';
     // await createAsync(cocktail);
   }

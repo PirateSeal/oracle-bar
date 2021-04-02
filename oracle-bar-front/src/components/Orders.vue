@@ -48,18 +48,22 @@ import { Component, Vue } from "vue-property-decorator";
 import OrderService from "@/services/OrderService";
 import TableService from "@/services/TableService";
 import CocktailService from "@/services/CocktailService";
-import Order from "@/model/Order";
-import Table from "@/model/Table";
-import Cocktail from "@/model/Cocktail";
+import Order from "@/models/Order";
+import Table from "@/models/Table";
+import {Cocktail, CocktailQuantity} from "@/models/Cocktail";
 
 @Component({})
 export default class Orders extends Vue {
-  private orderService = new OrderService();
+  private orderService: OrderService = new OrderService();
   private cocktailService: CocktailService = new CocktailService();
   private tableService: TableService = new TableService();
   private cocktails: Array<Cocktail> = []; //TODO should be Arrays<Cocktail> used in checkbox
   private tables: Array<Table> = []; //TODOshould be  Array<Table> used in tale selecl
-  private order;
+
+  private order: Order = { peopleId: null, cocktails: [] };
+  private tableId: number = null;
+  private peopleId: number = null;
+  private commandeId: number = null;
 
   async mounted() {
     this.tables = await this.tableService.findAll();
@@ -68,8 +72,11 @@ export default class Orders extends Vue {
 
   //TODO retrive tables from TableService.findAll
   //TODO retrive coctails from cocktailService.findAll
-
+  prepareOrder(cocktails: Array<CocktailQuantity>) {
+    this.order = {commandeId: this.commandeId, cocktails };
+  }
   onSubmit() {
+    
     this.orderService.create(this.order);
     return;
   }

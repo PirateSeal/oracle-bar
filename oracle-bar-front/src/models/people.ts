@@ -1,5 +1,5 @@
 
-export interface People {
+export default interface People {
     peopleId: number;
     tableId: number;
     name: string;
