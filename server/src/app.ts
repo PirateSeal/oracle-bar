@@ -4,10 +4,14 @@ import express, { NextFunction, Request, Response } from "express";
 import MasterRouter from "./routes/MasterRouter";
 import ErrorHandler from "./controllers/ErrorHandler";
 import { Sequelize } from "sequelize-typescript";
+import swaggerUi from "swagger-ui-express";
+import * as swaggerDocument from "./swagger.json";
 
 dotenv.config({
   path: ".env",
 });
+
+const bp = require("body-parser");
 
 const db = new Sequelize({
   database: process.env.DB_NAME,
@@ -34,8 +38,10 @@ db.sync({ force: true })
   .catch((err) => console.log("ERROR: " + err));
 
 const server = new Server();
-
+server.app.use(bp.json());
+server.app.use(bp.urlencoded({ extended: true }));
 server.app.use("/api", server.router);
+server.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 server.app.use(
   (err: ErrorHandler, req: Request, res: Response, next: NextFunction) => {

@@ -16,48 +16,61 @@ class OrderRouter {
 
   private _configure(controller) {
     //GET ALL
-    this._router.get("/", function (req, res, next) {
-      //TODO GET ALL
-      res.send("Order");
+    this._router.get("/", async function (req, res, next) {
+      try {
+        let orders: number = await controller.FetchAll();
+        res.status(200).json({
+          orders: orders,
+        });
+      } catch (e) {
+        res.status(500).json({ error: e.message });
+      }
     });
 
     //GET ONE
-    this._router.get("/:id", function (req, res, next) {
-      //TODO GET ONE
+    this._router.get("/:id", async function (req, res, next) {
+      try {
+        let order = await controller.FetchById(req.params.id);
+        res.status(200).json({
+          order: order,
+        });
+      } catch (e) {
+        res.status(404).json({ error: e.message });
+      }
     });
 
     //POST ONE
-    this._router.post("/", function (req, res, next) {
+    this._router.post("/", async function (req, res, next) {
       try {
-        let order = controller.CreateOne(req.body.order);
-        res
-          .json({
-            order: order,
-          })
-          .sendStatus(201);
+        let order = await controller.CreateOne(req.body);
+        res.status(201).json({
+          order: order,
+        });
       } catch (e) {
-        res.json({ error: e.message });
+        res.status(400).json({ error: e.message });
       }
     });
 
     //UPDATE ONE
-    this._router.put("/:id", function (req, res, next) {
-      //TODO UPDATE ONE
+    this._router.put("/:id", async function (req, res, next) {
       try {
-        let order = controller.UpdateOne(req.body.order);
-        res
-          .json({
-            order: order,
-          })
-          .sendStatus(200);
+        let order = await controller.UpdateOne(req.params.id, req.body);
+        res.status(202).json({
+          order: order,
+        });
       } catch (e) {
-        res.json({ error: e.message });
+        res.status(404).json({ error: e.message });
       }
     });
 
     //DELETE ONE
-    this._router.delete("/:id", function (req, res, next) {
-      //TODO DELETE ONE
+    this._router.delete("/:id", async function (req, res, next) {
+      try {
+        await controller.DeleteOne(req.params.id);
+        res.status(204);
+      } catch (e) {
+        res.status(404).json({ error: e.message });
+      }
     });
   }
 }
