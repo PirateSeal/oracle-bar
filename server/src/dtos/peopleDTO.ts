@@ -1,4 +1,5 @@
-export class PeopleDTO {
-  public name: string;
-  public tableId: number;
+import { PeopleSignupDTO } from "./peopleSignupDTO";
+
+export class PeopleDTO extends PeopleSignupDTO {
+  id: number;
 }
