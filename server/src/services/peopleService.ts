@@ -9,6 +9,6 @@ export default class PeopleService {
     let table = await location.findByPk(model.tableId);
     p.tableRef = table;
     p.save()
-    return p.get()
+    return p
   }
 }
