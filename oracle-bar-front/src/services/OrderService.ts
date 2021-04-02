@@ -13,8 +13,8 @@ export default class OrderService{
     }
     
     async findAllOrders(){
-        const cocktailsOrdered = await getAllOrders();
-        return cocktailsOrdered;
+        const orders = await getAllOrders();
+        return orders;
     }
 
     async wholeOrderReady(commandeId: number){
