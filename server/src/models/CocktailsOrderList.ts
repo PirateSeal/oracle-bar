@@ -1,27 +1,33 @@
-import {AutoIncrement, Column, HasOne, Model, PrimaryKey, Table} from 'sequelize-typescript'
-import {PeopleOrder} from "./PeopleOrder";
-import {Cocktails} from "./Cocktails";
+import {
+  AutoIncrement,
+  Column,
+  HasOne,
+  Model,
+  PrimaryKey,
+  Table,
+} from "sequelize-typescript";
+import { Order } from "./Order";
+import { Cocktails } from "./Cocktails";
 
-@Table({tableName: "cocktails_order_list"})
+@Table({ tableName: "cocktails_order_list" })
 export class CocktailsOrderList extends Model {
+  @PrimaryKey
+  @AutoIncrement
+  @Column
+  id: number;
 
-    @PrimaryKey
-    @AutoIncrement
-    @Column
-    id: number
+  @HasOne(() => Order, "FK_Order_CocktailOrderList")
+  order: Order;
 
-    @HasOne(() => PeopleOrder, "FK_PeopleOrder_CocktailOrderList")
-    order: PeopleOrder
+  @HasOne(() => Cocktails, "FK_Cocktails_CocktailOrderList")
+  cocktail: Cocktails;
 
-    @HasOne(() => Cocktails, "FK_Cocktails_CocktailOrderList")
-    cocktail: Cocktails
+  @Column
+  delivered: boolean;
 
-    @Column
-    delivered: boolean;
+  @Column
+  ready: boolean;
 
-    @Column
-    ready: boolean;
-
-    @Column
-    orderedat: Date;
+  @Column
+  orderedat: Date;
 }

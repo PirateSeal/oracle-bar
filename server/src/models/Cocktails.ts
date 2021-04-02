@@ -1,21 +1,27 @@
-import {Table, Column, Model, PrimaryKey, AutoIncrement} from 'sequelize-typescript'
+import {
+  AutoIncrement,
+  Column,
+  Model,
+  PrimaryKey,
+  Table,
+} from "sequelize-typescript";
 
-@Table({tableName: "cocktails"})
+@Table({ tableName: "cocktails" })
 export class Cocktails extends Model {
-    @PrimaryKey
-    @AutoIncrement
-    @Column
-    id: number
+  @PrimaryKey
+  @AutoIncrement
+  @Column
+  id: number;
 
-    @Column
-    name: string;
+  @Column
+  name: string;
 
-    @Column
-    price: number;
+  @Column
+  price: number;
 
-    @Column
-    photo: string;
+  @Column
+  photo: string;
 
-    @Column
-    Description: string;
+  @Column
+  Description: string;
 }
