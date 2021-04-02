@@ -1,13 +1,13 @@
 import { Table, Column, Model, PrimaryKey, AutoIncrement, HasOne } from 'sequelize-typescript'
 import { Location } from './Location'
 
-@Table({tableName: "people"})
-export class People extends Model {
+@Table({tableName: "People"})
+export class People extends Model<People> {
 
   @PrimaryKey
   @AutoIncrement
   @Column
-  id: string
+  id: number
 
   @Column
   name: string

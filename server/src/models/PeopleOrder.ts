@@ -7,7 +7,7 @@ export class PeopleOrder extends Model {
     @PrimaryKey
     @AutoIncrement
     @Column
-    id: string
+    id: number
 
     @Column
     price: number

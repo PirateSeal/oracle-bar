@@ -1,6 +1,6 @@
 import { AutoIncrement, Column, Model, PrimaryKey, Table } from "sequelize-typescript";
 
-@Table({tableName: "location"})
+@Table({tableName: "Location"})
 export class Location extends Model {
   @AutoIncrement
   @PrimaryKey
