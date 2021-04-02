@@ -1,4 +1,5 @@
-import { Table, Column, Model, HasMany, PrimaryKey, AutoIncrement } from 'sequelize-typescript'
+import { Table, Column, Model, HasMany, PrimaryKey, AutoIncrement, HasOne } from 'sequelize-typescript'
+import { TableRef } from './table'
 
 @Table({tableName: "people"})
 class People extends Model {
@@ -7,5 +8,9 @@ class People extends Model {
   @AutoIncrement
   id: string
 
-  
+  @Column
+  name: string
+
+  @HasOne(() => TableRef, "FK_People_TableRef")
+  tableRef: TableRef  
 }
