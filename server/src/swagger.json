@@ -9,12 +9,20 @@
   "basePath": "/api",
   "tags": [
     {
-      "name": "Cocktail",
+      "name": "Cocktails",
       "description": "API routes for cocktails"
     },
     {
       "name": "Orders",
       "description": "API routes for orders"
+    },
+    {
+      "name": "CocktailOrderList",
+      "description": "API routes for CocktailOrderList"
+    },
+    {
+      "name": "Tables",
+      "description": "API routes for tables"
     }
   ],
   "schemes": [
@@ -126,8 +134,75 @@
             "description": "Not Found"
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "Orders"
+        ],
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "type": "number",
+            "required": true
+          }
+        ],
+        "summary": "Delete order",
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
       }
-    }
+    },
+    "/table": {
+      "get": {
+        "tags": [
+          "Tables"
+        ],
+        "summary": "Get all TablesInfos",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/TablesInfos"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "parameters": [
+          {
+            "name": "TableInfo",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/TableInfo"
+            }
+          }
+        ],
+        "tags": [
+          "Tables"
+        ],
+        "summary": "Create a new TableInfo",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/TableInfo"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },"/table/{Id}": {}
   },
   "definitions": {
     "Cocktail": {
@@ -196,6 +271,13 @@
         }
       }
     },
+    "TablesInfos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "$ref": "#/definitions/TableInfo"
+      }
+    },
     "Order": {
       "type": "object",
       "properties": {
@@ -218,15 +300,10 @@
       }
     },
     "Orders": {
-      "type": "object",
-      "properties": {
-        "orders": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/Order"
-          }
-        }
+      "type": "array",
+      "items": {
+        "type": "object",
+        "$ref": "#/definitions/Order"
       }
     }
   }
