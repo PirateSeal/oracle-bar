@@ -1,8 +1,16 @@
-import { CreateOrderDTO } from "../dtos/createOrderDTO";
-import { OrderDTO } from "../dtos/orderDTO";
+import { CreateOrderDTO } from "../dtos/Order/CreateOrderDTO";
+import { OrderDTO } from "../dtos/Order/OrderDTO";
 import { Order } from "../models/Order";
 
 export default new (class OrderService {
+  public async FetchAll(): Promise<OrderDTO[]> {
+    return await Order.findAll();
+  }
+
+  public async FetchOneById(id: number): Promise<OrderDTO> {
+    return await Order.findByPk(id);
+  }
+
   public async CreateOne(model: CreateOrderDTO): Promise<OrderDTO> {
     return await Order.create({
       PeopleName: model.PeopleName,
@@ -11,15 +19,7 @@ export default new (class OrderService {
     });
   }
 
-  public async FetchAll(): Promise<OrderDTO[]> {
-    return await Order.findAll();
-  }
-
-  public async FetchById(id: number): Promise<OrderDTO> {
-    return await Order.findByPk(id);
-  }
-
-  public async UpdateOne(
+  public async UpdateOneById(
     id: number,
     model: OrderDTO
   ): Promise<[number, Order[]]> {
@@ -33,8 +33,8 @@ export default new (class OrderService {
     );
   }
 
-  public DeleteOne(id: number) {
-    return Order.destroy({
+  public async DeleteOneById(id: number): Promise<number> {
+    return await Order.destroy({
       where: {
         ID: id,
       },

@@ -1,4 +1,4 @@
-import { TableInfo } from "../models/TableInfo";
+import { TableInfo } from "../../models/TableInfo";
 
 export class CreateOrderDTO {
   public PeopleName: string;
