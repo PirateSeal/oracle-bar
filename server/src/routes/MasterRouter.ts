@@ -17,7 +17,7 @@ class MasterRouter {
   }
 
   private _configure() {
-    this._router.use("/people", this._peopleRoute);
+    this._router.use("/order", this._peopleRoute);
     this._router.use("/table", this._tableRoute);
 
     this._router.get("/", function (req, res, next) {

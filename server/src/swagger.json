@@ -1,0 +1,645 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Bora-Boracle",
+    "version": "0.0.1",
+    "description": "Mini projet visant à valider nos compétences en BDD"
+  },
+  "host": "localhost:3001",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "WIP",
+      "description": "Routes that aren't implemented yet"
+    },
+    {
+      "name": "Tables",
+      "description": "API routes for tables"
+    },
+    {
+      "name": "Cocktails",
+      "description": "API routes for cocktails"
+    },
+    {
+      "name": "Orders",
+      "description": "API routes for orders"
+    },
+    {
+      "name": "CocktailOrderList",
+      "description": "API routes for CocktailOrderList"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/table": {
+      "get": {
+        "tags": [
+          "Tables"
+        ],
+        "summary": "Get all TablesInfos",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "$ref": "#/definitions/TableInfo"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "parameters": [
+          {
+            "name": "TableInfo",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/TableInfo"
+            }
+          }
+        ],
+        "tags": [
+          "Tables"
+        ],
+        "summary": "Create a new TableInfo",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/TableInfo"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/table/{Id}": {
+      "get": {
+        "tags": [
+          "Tables"
+        ],
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "type": "number",
+            "required": true
+          }
+        ],
+        "summary": "Get table by ID",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/TableInfo"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Tables"
+        ],
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "type": "number",
+            "required": true
+          },
+          {
+            "name": "TableInfo",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/TableInfo"
+            }
+          }
+        ],
+        "summary": "Update TableInfo",
+        "responses": {
+          "202": {
+            "description": "Accepted"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Tables"
+        ],
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "type": "number",
+            "required": true
+          }
+        ],
+        "summary": "Delete TableInfo",
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/cocktail": {
+      "get": {
+        "tags": [
+          "Cocktails",
+          "WIP"
+        ],
+        "summary": "Get all Cocktails",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "$ref": "#/definitions/Cocktail"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "parameters": [
+          {
+            "name": "Cocktail",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Cocktail"
+            }
+          }
+        ],
+        "tags": [
+          "Cocktails",
+          "WIP"
+        ],
+        "summary": "Create a new Cocktail",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/Cocktail"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/cocktail/{id}": {
+      "get": {
+        "tags": [
+          "Cocktails",
+          "WIP"
+        ],
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "type": "number",
+            "required": true
+          }
+        ],
+        "summary": "Get cocktail by ID",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Cocktail"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Cocktails",
+          "WIP"
+        ],
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "type": "number",
+            "required": true
+          },
+          {
+            "name": "Cocktail",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Cocktail"
+            }
+          }
+        ],
+        "summary": "Update Cocktail",
+        "responses": {
+          "202": {
+            "description": "Accepted"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Cocktails",
+          "WIP"
+        ],
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "type": "number",
+            "required": true
+          }
+        ],
+        "summary": "Delete Cocktail",
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/order": {
+      "get": {
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Get all orders",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "$ref": "#/definitions/Order"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "parameters": [
+          {
+            "name": "Order",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          }
+        ],
+        "tags": [
+          "Orders"
+        ],
+        "summary": "Create a new order",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/order/{Id}": {
+      "get": {
+        "tags": [
+          "Orders"
+        ],
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "type": "number",
+            "required": true
+          }
+        ],
+        "summary": "Get order by ID",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Orders"
+        ],
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "type": "number",
+            "required": true
+          },
+          {
+            "name": "Order",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          }
+        ],
+        "summary": "Update order",
+        "responses": {
+          "202": {
+            "description": "Accepted"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Orders"
+        ],
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "type": "number",
+            "required": true
+          }
+        ],
+        "summary": "Delete order",
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/cocktailorder": {
+      "get": {
+        "tags": [
+          "CocktailOrderList",
+          "WIP"
+        ],
+        "summary": "Get all cocktails in every order",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "$ref": "#/definitions/CocktailOrderList"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "parameters": [
+          {
+            "name": "CocktailOrderList",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CocktailOrderList"
+            }
+          }
+        ],
+        "tags": [
+          "CocktailOrderList",
+          "WIP"
+        ],
+        "summary": "Create a new cocktail order",
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/CocktailOrderList"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/cocktailorder/{id}": {
+      "get": {
+        "tags": [
+          "CocktailOrderList",
+          "WIP"
+        ],
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "type": "number",
+            "required": true
+          }
+        ],
+        "summary": "Get cocktail order by ID",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/CocktailOrderList"
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "CocktailOrderList",
+          "WIP"
+        ],
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "type": "number",
+            "required": true
+          },
+          {
+            "name": "CocktailOrderList",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/CocktailOrderList"
+            }
+          }
+        ],
+        "summary": "Update cocktail order",
+        "responses": {
+          "202": {
+            "description": "Accepted"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "CocktailOrderList",
+          "WIP"
+        ],
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "type": "number",
+            "required": true
+          }
+        ],
+        "summary": "Delete cocktail order",
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "TableInfo": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "number",
+          "uniqueItems": true
+        },
+        "Number": {
+          "type": "number"
+        },
+        "Location": {
+          "type": "string"
+        }
+      }
+    },
+    "Cocktail": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "number",
+          "uniqueItems": true
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Price": {
+          "type": "number"
+        },
+        "Photo": {
+          "type": "string"
+        },
+        "Description": {
+          "type": "string"
+        }
+      }
+    },
+    "Order": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "number",
+          "uniqueItems": true
+        },
+        "PeopleName": {
+          "type": "string"
+        },
+        "Complete": {
+          "type": "boolean"
+        },
+        "TableInfo": {
+          "type": "object",
+          "maximum": 1,
+          "$ref": "#/definitions/TableInfo"
+        }
+      }
+    },
+    "CocktailOrderList": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "number",
+          "uniqueItems": true
+        },
+        "Order": {
+          "type": "object",
+          "$ref": "#/definitions/Order"
+        },
+        "Cocktail": {
+          "type": "object",
+          "$ref": "#/definitions/Cocktail"
+        },
+        "Delivered": {
+          "type": "boolean"
+        },
+        "Ready": {
+          "type": "boolean"
+        },
+        "OrderedAt": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

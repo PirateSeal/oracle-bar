@@ -1,39 +1,42 @@
-import { CreateOrderDTO } from "../dtos/createOrderDTO";
-import { OrderDTO } from "../dtos/orderDTO";
+import { CreateOrderDTO } from "../dtos/Order/CreateOrderDTO";
+import { OrderDTO } from "../dtos/Order/OrderDTO";
 import { Order } from "../models/Order";
 
 export default new (class OrderService {
-  public async CreateOne(model: CreateOrderDTO) {
-    return await Order.create({
-      people_name: model.people_name,
-      table_info: model.table_info,
-      complete: model.complete,
-    });
-  }
-
-  public async FetchAll() {
+  public async FetchAll(): Promise<OrderDTO[]> {
     return await Order.findAll();
   }
 
-  public async FetchById(id: number) {
+  public async FetchOneById(id: number): Promise<OrderDTO> {
     return await Order.findByPk(id);
   }
 
-  public async UpdateOne(model: OrderDTO) {
+  public async CreateOne(model: CreateOrderDTO): Promise<OrderDTO> {
+    return await Order.create({
+      PeopleName: model.PeopleName,
+      TableInfo: model.TableInfo,
+      Complete: model.Complete,
+    });
+  }
+
+  public async UpdateOneById(
+    id: number,
+    model: OrderDTO
+  ): Promise<[number, Order[]]> {
     return await Order.update(
       {
-        people_name: model.people_name,
-        table_info: model.table_info,
-        complete: model.complete,
+        PeopleName: model.PeopleName,
+        TableInfo: model.TableInfo,
+        Complete: model.Complete,
       },
-      { where: { id: model.id } }
+      { where: { ID: id } }
     );
   }
 
-  public DeleteOne(id: number) {
-    return Order.destroy({
+  public async DeleteOneById(id: number): Promise<number> {
+    return await Order.destroy({
       where: {
-        id: id,
+        ID: id,
       },
     });
   }

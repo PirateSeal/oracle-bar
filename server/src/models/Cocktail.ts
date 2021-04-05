@@ -6,21 +6,21 @@ import {
   Table,
 } from "sequelize-typescript";
 
-@Table({ tableName: "cocktails" })
-export class Cocktails extends Model {
+@Table({ tableName: "Cocktail" })
+export class Cocktail extends Model {
   @PrimaryKey
   @AutoIncrement
   @Column
-  id: number;
+  ID: number;
 
   @Column
-  name: string;
+  Name: string;
 
   @Column
-  price: number;
+  Price: number;
 
   @Column
-  photo: string;
+  Photo: string;
 
   @Column
   Description: string;
