@@ -1,4 +1,4 @@
-import { findAllCocktails, getCocktailsOrdered, prepareCocktail   } from "@/api/cocktailApi";
+import { findAllCocktails, getCocktailsOrdered, prepareCocktail   } from "@/api/CocktailApi";
 
 export default class CocktailService {
 
