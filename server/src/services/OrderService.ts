@@ -1,32 +1,32 @@
-import { CreateOrderDTO } from "../dtos/Order/CreateOrderDTO";
 import { OrderDTO } from "../dtos/Order/OrderDTO";
+import { CreatedOrderDTO } from "../dtos/Order/CreatedOrderDTO";
 import { Order } from "../models/Order";
 
 export default new (class OrderService {
-  public async FetchAll(): Promise<OrderDTO[]> {
+  public async FetchAll(): Promise<CreatedOrderDTO[]> {
     return await Order.findAll();
   }
 
-  public async FetchOneById(id: number): Promise<OrderDTO> {
+  public async FetchOneById(id: number): Promise<CreatedOrderDTO> {
     return await Order.findByPk(id);
   }
 
-  public async CreateOne(model: CreateOrderDTO): Promise<OrderDTO> {
+  public async CreateOne(model: OrderDTO): Promise<CreatedOrderDTO> {
     return await Order.create({
       PeopleName: model.PeopleName,
-      TableInfo: model.TableInfo,
+      TableID: model.TableID,
       Complete: model.Complete,
     });
   }
 
   public async UpdateOneById(
     id: number,
-    model: OrderDTO
+    model: CreatedOrderDTO
   ): Promise<[number, Order[]]> {
     return await Order.update(
       {
         PeopleName: model.PeopleName,
-        TableInfo: model.TableInfo,
+        TableID: model.TableID,
         Complete: model.Complete,
       },
       { where: { ID: id } }

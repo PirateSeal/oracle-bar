@@ -1,9 +1,5 @@
-import { CreateOrderDTO } from "./CreateOrderDTO";
-import { TableInfo } from "../../models/TableInfo";
-
-export class OrderDTO extends CreateOrderDTO {
-  public ID: number;
+export class OrderDTO {
   public PeopleName: string;
   public Complete: boolean;
-  public TableInfo: TableInfo;
+  public TableID: number;
 }

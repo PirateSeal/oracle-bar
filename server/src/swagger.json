@@ -608,10 +608,8 @@
         "Complete": {
           "type": "boolean"
         },
-        "TableInfo": {
-          "type": "object",
-          "maximum": 1,
-          "$ref": "#/definitions/TableInfo"
+        "TableID": {
+          "type": "number"
         }
       }
     },
@@ -622,13 +620,11 @@
           "type": "number",
           "uniqueItems": true
         },
-        "Order": {
-          "type": "object",
-          "$ref": "#/definitions/Order"
+        "OrderID": {
+          "type": "number"
         },
-        "Cocktail": {
-          "type": "object",
-          "$ref": "#/definitions/Cocktail"
+        "CocktailID": {
+          "type": "number"
         },
         "Delivered": {
           "type": "boolean"

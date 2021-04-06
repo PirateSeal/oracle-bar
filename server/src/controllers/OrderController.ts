@@ -1,7 +1,7 @@
 import ErrorHandler from "./ErrorHandler";
 import OrderService from "../services/OrderService";
-import { CreateOrderDTO } from "../dtos/Order/CreateOrderDTO";
 import { OrderDTO } from "../dtos/Order/OrderDTO";
+import { CreatedOrderDTO } from "../dtos/Order/CreatedOrderDTO";
 import { Order } from "../models/Order";
 
 class OrderController {
@@ -11,19 +11,22 @@ class OrderController {
     throw new ErrorHandler(501, "Not implemented method");
   }
 
-  async FetchAll(): Promise<OrderDTO[]> {
+  async FetchAll(): Promise<CreatedOrderDTO[]> {
     return await this._service.FetchAll();
   }
 
-  async FetchOneById(id: number): Promise<OrderDTO> {
+  async FetchOneById(id: number): Promise<CreatedOrderDTO> {
     return await this._service.FetchOneById(id);
   }
 
-  async CreateOne(model: CreateOrderDTO): Promise<OrderDTO> {
+  async CreateOne(model: OrderDTO): Promise<CreatedOrderDTO> {
     return await this._service.CreateOne(model);
   }
 
-  async UpdateOneById(id: number, model: OrderDTO): Promise<[number, Order[]]> {
+  async UpdateOneById(
+    id: number,
+    model: CreatedOrderDTO
+  ): Promise<[number, Order[]]> {
     return await this._service.UpdateOneById(id, model);
   }
 

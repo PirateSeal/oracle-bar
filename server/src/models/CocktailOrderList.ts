@@ -1,7 +1,7 @@
 import {
   AutoIncrement,
   Column,
-  HasOne,
+  ForeignKey,
   Model,
   PrimaryKey,
   Table,
@@ -16,11 +16,13 @@ export class CocktailOrderList extends Model {
   @Column
   ID: number;
 
-  @HasOne(() => Order, "FK_Order_CocktailOrderList")
-  Order: Order;
+  @ForeignKey(() => Order)
+  @Column
+  OrderID: number;
 
-  @HasOne(() => Cocktail, "FK_Cocktails_CocktailOrderList")
-  Cocktail: Cocktail;
+  @ForeignKey(() => Cocktail)
+  @Column
+  CocktailID: number;
 
   @Column
   Delivered: boolean;
