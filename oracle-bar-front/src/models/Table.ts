@@ -1,8 +1,9 @@
 export interface TablePeople {
-    tableId: number,
-    pseudo: string,
+  PeopleName: string;
+  Complete: boolean;
+  TableID: number;
 }
-export default interface Table {
-    tableId: number;
-    name: string;
-};
+export interface Table {
+  TableId: number;
+  Name: string;
+}

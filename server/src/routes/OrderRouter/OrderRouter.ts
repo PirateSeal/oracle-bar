@@ -14,11 +14,11 @@ class OrderRouter {
     return this._router;
   }
 
-  private _configure(controller) {
+  private _configure(controller: typeof OrderController) {
     //GET ALL
     this._router.get("/", async function (req, res, next) {
       try {
-        let orders: number = await controller.FetchAll();
+        let orders = await controller.FetchAll();
         res.status(200).json({
           orders: orders,
         });
@@ -30,7 +30,7 @@ class OrderRouter {
     //GET ONE
     this._router.get("/:id", async function (req, res, next) {
       try {
-        let order = await controller.FetchOneById(req.params.id);
+        let order = await controller.FetchOneById(parseInt(req.params.id));
         res.status(200).json({
           order: order,
         });
@@ -51,10 +51,23 @@ class OrderRouter {
       }
     });
 
+
     //UPDATE ONE
     this._router.put("/:id", async function (req, res, next) {
       try {
-        let order = await controller.UpdateOneById(req.params.id, req.body);
+        let order = await controller.UpdateOneById(parseInt(req.params.id), req.body);
+        res.status(202).json({
+          order: order,
+        });
+      } catch (e) {
+        res.status(404).json({ error: e.message });
+      }
+    });
+
+
+    this._router.post("/command", async function (req, res, next) {
+      try {
+        let order = await controller.AddCocktailsToOrder(req.body);
         res.status(202).json({
           order: order,
         });
@@ -66,7 +79,7 @@ class OrderRouter {
     //DELETE ONE
     this._router.delete("/:id", async function (req, res, next) {
       try {
-        await controller.DeleteOneById(req.params.id);
+        await controller.DeleteOneById(parseInt(req.params.id));
         res.status(204);
       } catch (e) {
         res.status(404).json({ error: e.message });

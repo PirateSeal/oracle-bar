@@ -1,7 +1,8 @@
 <template>
   <div>
+    <!-- <div> -->
     <div v-if="!isSeated">
-      <form @submit.prevent="setTable">
+      <form>
         <div class="row">
           <div class="col">
             <label for="name" class="form-label">Name</label>
@@ -24,23 +25,39 @@
               v-model="tableId"
               required
             >
-              <option selected>Choisisez une table</option>
+              <option selected :value="-1">Choisisez une table</option>
               <option
                 v-for="table in tables"
-                :key="table.tableId"
-                :value="table.tableId"
-                >{{ table.name }}</option
+                :key="table.ID"
+                :value="table.ID"
               >
+                {{ table.Location }}
+              </option>
             </select>
           </div>
         </div>
 
-        <button class="btn btn-primary" type="submit" @click="setTable">
+        <button class="btn btn-primary" type="submit" @click="seatPerson">
           Valider
         </button>
       </form>
     </div>
-    <div id="orderCocktail" v-if="isSeated">
+    <div v-else>
+      <h1>Bienvenue à BoraBoracle {{pseudo}}!</h1>
+
+      <div class="flexCocktails">
+        <div class="cocktailCard" v-for="cocktail in cocktails" :key="cocktail.ID">
+          <img :src="cocktail.Photo" alt=""> <br>
+          {{cocktail.Name}} - {{cocktail.Price}}€ <br>
+          <input type="number" v-model="cocktail.quantity" class="quantityInput">
+        </div>
+      </div>
+      <div class="addition">
+        aa
+        <p v-for="(cocktail, index) in orderedCocktails" :key="index">{{cocktail.Name}} x {{cocktail.quantity}} => {{cocktail.quantity * cocktail.Price }}</p>
+      </div>
+    </div>
+    <!-- <div id="orderCocktail">
       <div class="card-group">
         <div
           class="card"
@@ -67,49 +84,59 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <button class="btn btn-primary" @click="onSubmit">Commander</button>
+    <button class="btn btn-primary" @click="order">Commander</button>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 
-import OrderService from "@/services/OrderService";
-import TableService from "@/services/TableService";
-import CocktailService from "@/services/CocktailService";
-import Table from "@/models/Table";
-import { Cocktail } from "@/models/Cocktail";
+import OrderService from "../services/OrderService";
+import TableService from "../services/TableService";
+import CocktailService from "../services/CocktailService";
+import {Table} from "../models/Table";
+import { Cocktail } from "../models/Cocktail";
 
 @Component({})
 export default class Orders extends Vue {
-  private orderService: OrderService = new OrderService();
   private localStorage = window.localStorage;
-
-  private cocktailService: CocktailService = new CocktailService();
-  private tableService: TableService = new TableService();
-
   private cocktails: Array<Cocktail> = [];
-  private selectedCocktails: Array<Cocktail> = [];
+  private orderedCocktails: Array<Cocktail> = [];
   private tables: Array<Table> = [];
-  private pseudo;
-  private tableId;
+  private pseudo = "";
+  private tableId = -1;
+  private orderId = -1;
 
   async mounted() {
-    this.tables = await this.tableService.findAll();
-    this.cocktails = await this.cocktailService.findAll();
-    this.pseudo = this.localStorage.getItem("name");
-    this.tableId = this.localStorage.getItem("tableId");
+    this.tables = await TableService.findAll();
+    this.cocktails = await CocktailService.findAll();
+    this.pseudo = this.localStorage.getItem("name") ? this.localStorage.getItem("name")! : "";
+    this.orderId = this.localStorage.getItem("commandeId") ? parseInt(this.localStorage.getItem("commandeId")!) : -1;
+    console.log(this.orderId);
+    
+    this.tableId = this.localStorage.getItem("tableId") ? parseInt(this.localStorage.getItem("tableId")! ) : -1;
   }
 
   get isSeated(): boolean {
-    return this.getPseudo != null && this.getTableId != null;
+    return this.orderId != -1;
   }
 
-  async onSubmit() {
-    // await this.orderService.createOrder();
+  async seatPerson(e: any): Promise<void> {
+    e.preventDefault()    
+    this.orderId = (await OrderService.createOrder({TableID: this.tableId, PeopleName: this.pseudo, Complete: false})).ID;
   }
+
+  getOrderId() {
+    const order = this.localStorage.getItem("orderId");
+    if (order === "" || order == null) {
+      return null;
+    } else {
+      return order;
+    }
+  }
+
   getPseudo() {
     const pseudo = this.localStorage.getItem("pseudo");
     if (pseudo === "" || pseudo == null) {
@@ -127,17 +154,54 @@ export default class Orders extends Vue {
       return +tableId;
     }
   }
-  setTable() {
-    this.localStorage.setItem("pseudo", this.pseudo!);
-    this.localStorage.setItem("tableId", this.tableId!);
-  }
 
-  get totalPrice(): number {
-    let price = 0;
-    this.selectedCocktails.forEach((c) => {
-      price += c.price;
-    });
-    return price;
+    
+
+  async order() {
+    this.orderedCocktails =  this.orderedCocktails.concat(this.cocktails.filter(c => c.quantity !== undefined && c.quantity > 0));
+
+    // console.log(this.orderedCocktails);
+    
+    await OrderService.order({orderId: this.orderId, cocktails: this.cocktails.filter(c => c.quantity !== undefined && c.quantity > 0).map(c => { return {quantity: c.quantity, cocktailId: c.ID}})})
+    console.log("", [...this.orderedCocktails])
   }
+  // setTable() {
+  //   this.localStorage.setItem("pseudo", this.pseudo!);
+  //   this.localStorage.setItem("tableId", this.tableId!);
+  // }
+
+  // get totalPrice(): number {
+  //   let price = 0;
+  //   this.selectedCocktails.forEach((c) => {
+  //     price += c.price;
+  //   });
+  //   return price;
+  // }
 }
 </script>
+<style lang="scss" scoped>
+.flexCocktails {
+  display: flex;
+    flex-wrap: wrap;
+  
+  
+}
+
+.cocktailCard {
+  text-align: center;
+  font-weight: bold;
+  border: solid 1px black;
+  margin: 5px;
+  border-radius: 15px;
+  width: 150px;
+  img {
+    width: 125px;
+  }
+  .quantityInput {
+    width: 50%;
+    margin-bottom: 5px;
+    border:  dotted 3px gray;
+    text-align: center;
+  }
+}
+</style>

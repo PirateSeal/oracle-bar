@@ -1,6 +1,6 @@
 import { findAllTables } from "@/api/TableApi";
 
-export default class TableService{
+export default new class TableService{
 
 
     async findAll() {

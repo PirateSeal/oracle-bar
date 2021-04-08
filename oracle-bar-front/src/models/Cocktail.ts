@@ -4,7 +4,7 @@ export interface CocktailQuantity {
 }
 
 export interface Cocktail {
-    cocktailId: number;
+    ID: number;
     name: string;
     price: number;
     description: string;

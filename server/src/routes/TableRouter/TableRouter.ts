@@ -19,7 +19,7 @@ class TableRouter {
     this._router.get("/", async function (req, res, next) {
       try {
         let tables = await controller.FetchAll();
-        res.status(200).json({ tables: tables });
+        res.status(200).json( tables );
       } catch (e) {
         res.status(500).json({ error: e.message });
       }
@@ -39,7 +39,7 @@ class TableRouter {
     this._router.post("/", async function (req, res, next) {
       try {
         let table = await controller.CreateOne(req.body);
-        res.status(201).json({ table: table });
+        res.status(201).json( table );
       } catch (e) {
         res.status(400).json({ error: e.message });
       }

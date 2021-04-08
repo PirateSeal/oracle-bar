@@ -1,6 +1,8 @@
 import { OrderDTO } from "../dtos/Order/OrderDTO";
 import { CreatedOrderDTO } from "../dtos/Order/CreatedOrderDTO";
 import { Order } from "../models/Order";
+import { OrderNewCocktailsDTO } from "../dtos/Order/OrderNewCocktailsDTO";
+import { CocktailOrderList } from "../models/CocktailOrderList";
 
 export default new (class OrderService {
   public async FetchAll(): Promise<CreatedOrderDTO[]> {
@@ -17,6 +19,20 @@ export default new (class OrderService {
       TableID: model.TableID,
       Complete: model.Complete,
     });
+  }
+
+  public async AddCocktailToCommand(model: OrderNewCocktailsDTO) {
+ 
+    model.cocktails.forEach(async (c) => {
+      for(let i = 1; i <= c.quantity; i++)
+        await CocktailOrderList.create({
+          OrderID: model.orderId,
+          CocktailID: c.cocktailId,
+          Delevired: false,
+          Ready: false,
+          OrderedAt: new Date(Date.now())
+        })
+    })
   }
 
   public async UpdateOneById(

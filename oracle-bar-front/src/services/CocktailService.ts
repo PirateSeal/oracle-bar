@@ -1,6 +1,6 @@
 import { findAllCocktails, getCocktailsOrdered, prepareCocktail   } from "@/api/CocktailApi";
 
-export default class CocktailService {
+export default new class CocktailService {
 
     async findAll() {
       const cocktails =  await findAllCocktails();

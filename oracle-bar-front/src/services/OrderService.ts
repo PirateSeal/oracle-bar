@@ -1,11 +1,14 @@
 import { orderCocktails, newOrder, getAllOrders, deliverOrder,  } from '@/api/OrderApi';
-import  { CocktailToOrder }  from '@/models/Order';
-import TablePeople from '@/models/Table';
+import  { CocktailToOrder }  from '../models/Order';
+import {TablePeople} from '../models/Table';
 
-export default class OrderService{
-    async createOrder(tablePeople: TablePeople){
+export default new class OrderService{
+    async createOrder(tablePeople: TablePeople): Promise<{ID: number}>{
         const commandeId = await newOrder(tablePeople);
-        localStorage.setItem("commandeId", commandeId);
+        localStorage.setItem("pseudo", tablePeople.PeopleName);
+
+        localStorage.setItem("commandeId", commandeId.order.ID);
+        return commandeId.order.ID;
     }
 
     async order(order: CocktailToOrder) {

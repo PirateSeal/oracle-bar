@@ -1,7 +1,7 @@
 import { CocktailQuantity } from '@/models/Cocktail'
 
 export interface CocktailToOrder {
-    oderId: number;
+    orderId: number;
     cocktails: Array<CocktailQuantity>;
 };
 
