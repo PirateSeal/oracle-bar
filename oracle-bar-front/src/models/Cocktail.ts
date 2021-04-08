@@ -9,4 +9,5 @@ export interface Cocktail {
     price: number;
     description: string;
     photo: string;
+    quantity:number
 }
