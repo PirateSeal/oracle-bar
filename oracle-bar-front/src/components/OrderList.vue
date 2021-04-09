@@ -23,7 +23,7 @@
                 v-model="cocktail.Delivered"
                 type="checkbox"
                 class="custom-control-input"
-                @change="updateDelireryStatus(cocktail.orderCocktailId)"
+                @change="(e) => {updateDelireryStatus(cocktail.ID)}"
               />
             </div>
           </td>
@@ -33,7 +33,7 @@
                 v-model="cocktail.Ready"
                 type="checkbox"
                 class="custom-control-input"
-                @change="updateReadyStatus(cocktail.orderCocktailId)"
+                @change="(e) => {updateReadyStatuts(cocktail.ID)}"
               />
             </div>
           </td>
@@ -44,11 +44,11 @@
 </template>
 
 <script lang="ts">
-import OrderedCocktail from "@/models/OrderedCocktail";
-import CocktailService from "@/services/CocktailService";
+import OrderedCocktail from "../models/OrderedCocktail";
+import CocktailService from "../services/CocktailService";
 import { Component, Vue } from "vue-property-decorator";
 
-@Component
+@Component({})
 export default class OrderList extends Vue {
   cocktailList: Array<OrderedCocktail> = [];
 
@@ -57,6 +57,8 @@ export default class OrderList extends Vue {
   }
 
   async updateDelireryStatus(orderCocktailId: number) {
+    console.log("hi");
+    
     await CocktailService.updateDelivery(orderCocktailId);
     await this.refresh();
   }

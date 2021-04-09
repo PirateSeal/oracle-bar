@@ -1,5 +1,5 @@
 export default interface OrderedCocktail {
-    orderCocktailId: number;
+    ID: number;
     cocktailName: string,
     tableName: string,
     delivered: boolean,

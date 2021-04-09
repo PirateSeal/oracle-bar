@@ -147,7 +147,7 @@ export default class Orders extends Vue {
         PeopleName: this.pseudo,
         Complete: false,
       })
-    this.orderId = response.order.ID;
+    this.orderId = response;
   }
 
   getOrderId() {

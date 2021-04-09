@@ -14,7 +14,7 @@ export default new class OrderService{
     }
 
     async order(order: CocktailToOrder) {
-        await orderCocktails(order);
+        return await orderCocktails(order);
     }
     
     async findAllOrders(){
