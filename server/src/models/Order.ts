@@ -1,4 +1,5 @@
-import {AutoIncrement, Column, ForeignKey, Model, PrimaryKey, Table,} from "sequelize-typescript";
+import {AutoIncrement, BelongsTo, Column, ForeignKey, HasMany, Model, PrimaryKey, Table,} from "sequelize-typescript";
+import { CocktailOrderList } from "./CocktailOrderList";
 import {TableInfo} from "./TableInfo";
 
 @Table({tableName: "Order"})
@@ -17,4 +18,10 @@ export class Order extends Model {
     @ForeignKey(() => TableInfo)
     @Column
     TableID: number;
+
+    @BelongsTo(() => TableInfo)
+    TableInfo: TableInfo;
+
+    @HasMany(() => CocktailOrderList)
+    CocktailOrders: CocktailOrderList[]
 }

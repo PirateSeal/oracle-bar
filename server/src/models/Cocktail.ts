@@ -1,10 +1,12 @@
 import {
   AutoIncrement,
   Column,
+  HasMany,
   Model,
   PrimaryKey,
   Table,
 } from "sequelize-typescript";
+import { CocktailOrderList } from "./CocktailOrderList";
 
 @Table({ tableName: "Cocktail" })
 export class Cocktail extends Model {
@@ -24,4 +26,7 @@ export class Cocktail extends Model {
 
   @Column
   Description: string;
+
+  @HasMany(() => CocktailOrderList)
+  Cocktails: Cocktail[]
 }
