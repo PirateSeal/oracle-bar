@@ -6,7 +6,6 @@ import Orders from "@/components/Orders.vue";
 import OrderList from "@/components/OrderList.vue";
 
 import WaitersMenu from "@/components/WaitersMenu.vue";
-import Test from "@/views/Test.vue";
 
 Vue.use(VueRouter);
 
@@ -30,11 +29,6 @@ const routes: Array<RouteConfig> = [
     path: "/waiter",
     name: "Waiter",
     component: WaitersMenu,
-  },
-  {
-    path: "/test",
-    name: "Test",
-    component: Test,
   },
   {
     path: "/about",
