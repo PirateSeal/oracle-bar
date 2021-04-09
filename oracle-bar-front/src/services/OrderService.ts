@@ -1,4 +1,4 @@
-import { orderCocktails, newOrder, getAllOrders, deliverOrder, getBills } from '@/api/OrderApi';
+import { orderCocktails, newOrder, getAllOrders, deliverOrder, getBills, complete } from '@/api/OrderApi';
 import  { CocktailToOrder }  from '../models/Order';
 import {TablePeople} from '@/models/Table';
 
@@ -34,5 +34,8 @@ export default new class OrderService{
         return await getBills(tableId)
     }
 
+    async completeOrder(orderId: number) {
+        await complete(orderId);
+    }
 
 }

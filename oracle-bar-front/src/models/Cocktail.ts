@@ -11,3 +11,9 @@ export interface Cocktail {
     photo: string;
     quantity:number
 }
+
+export interface OrderToDeliver{
+    orderId: number;
+    orderPersonName: string;
+    cocktails: Array<Cocktail>
+}

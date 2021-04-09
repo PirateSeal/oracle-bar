@@ -1,8 +1,8 @@
 export default interface OrderedCocktail {
-    id: number;
-    orderId: number;
-    cocktailId: number;
-    delivered: boolean;
-    ready: boolean;
-    orderedAt: Date;
+    orderCocktailId: number;
+    cocktailName: string,
+    tableName: string,
+    delivered: boolean,
+    ready: boolean,
+    orderPersonName: String,
 };
