@@ -3,6 +3,7 @@ import { CreatedOrderDTO } from "../dtos/Order/CreatedOrderDTO";
 import { Order } from "../models/Order";
 import { OrderNewCocktailsDTO } from "../dtos/Order/OrderNewCocktailsDTO";
 import { CocktailOrderList } from "../models/CocktailOrderList";
+import { Op } from "sequelize";
 
 export default new (class OrderService {
   public async FetchAll(): Promise<CreatedOrderDTO[]> {
@@ -21,14 +22,26 @@ export default new (class OrderService {
     });
   }
 
+  public async GetByTable(tableId: number): Promise<OrderDTO[]> {
+    return await Order.findAll({
+      where: {
+        TableID: {
+          [Op.eq]: tableId
+        }
+      }
+    });
+  }
+
+
   public async AddCocktailToCommand(model: OrderNewCocktailsDTO) {
  
     model.cocktails.forEach(async (c) => {
       for(let i = 1; i <= c.quantity; i++)
+      
         await CocktailOrderList.create({
           OrderID: model.orderId,
           CocktailID: c.cocktailId,
-          Delevired: false,
+          Delivered: false,
           Ready: false,
           OrderedAt: new Date(Date.now())
         })
