@@ -9,10 +9,6 @@
   "basePath": "/api",
   "tags": [
     {
-      "name": "WIP",
-      "description": "Routes that aren't implemented yet"
-    },
-    {
       "name": "Tables",
       "description": "API routes for tables"
     },
@@ -169,8 +165,7 @@
     "/cocktail": {
       "get": {
         "tags": [
-          "Cocktails",
-          "WIP"
+          "Cocktails"
         ],
         "summary": "Get all Cocktails",
         "responses": {
@@ -200,8 +195,7 @@
           }
         ],
         "tags": [
-          "Cocktails",
-          "WIP"
+          "Cocktails"
         ],
         "summary": "Create a new Cocktail",
         "responses": {
@@ -220,8 +214,7 @@
     "/cocktail/{id}": {
       "get": {
         "tags": [
-          "Cocktails",
-          "WIP"
+          "Cocktails"
         ],
         "parameters": [
           {
@@ -246,8 +239,7 @@
       },
       "put": {
         "tags": [
-          "Cocktails",
-          "WIP"
+          "Cocktails"
         ],
         "parameters": [
           {
@@ -276,8 +268,7 @@
       },
       "delete": {
         "tags": [
-          "Cocktails",
-          "WIP"
+          "Cocktails"
         ],
         "parameters": [
           {
@@ -428,8 +419,7 @@
     "/cocktailorder": {
       "get": {
         "tags": [
-          "CocktailOrderList",
-          "WIP"
+          "CocktailOrderList"
         ],
         "summary": "Get all cocktails in every order",
         "responses": {
@@ -459,8 +449,7 @@
           }
         ],
         "tags": [
-          "CocktailOrderList",
-          "WIP"
+          "CocktailOrderList"
         ],
         "summary": "Create a new cocktail order",
         "responses": {
@@ -479,8 +468,7 @@
     "/cocktailorder/{id}": {
       "get": {
         "tags": [
-          "CocktailOrderList",
-          "WIP"
+          "CocktailOrderList"
         ],
         "parameters": [
           {
@@ -505,8 +493,7 @@
       },
       "put": {
         "tags": [
-          "CocktailOrderList",
-          "WIP"
+          "CocktailOrderList"
         ],
         "parameters": [
           {
@@ -535,8 +522,7 @@
       },
       "delete": {
         "tags": [
-          "CocktailOrderList",
-          "WIP"
+          "CocktailOrderList"
         ],
         "parameters": [
           {
