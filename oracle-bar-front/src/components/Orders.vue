@@ -26,11 +26,7 @@
               required
             >
               <option selected :value="-1">Choisisez une table</option>
-              <option
-                v-for="table in tables"
-                :key="table.ID"
-                :value="table.ID"
-              >
+              <option v-for="table in tables" :key="table.ID" :value="table.ID">
                 {{ table.Location }}
               </option>
             </select>
@@ -43,19 +39,29 @@
       </form>
     </div>
     <div v-else>
-      <h1>Bienvenue à BoraBoracle {{pseudo}}!</h1>
+      <h1>Bienvenue à BoraBoracle {{ pseudo }}!</h1>
 
       <div class="flexCocktails">
-        <div class="cocktailCard" v-for="cocktail in cocktails" :key="cocktail.ID">
-          <img :src="cocktail.Photo" alt=""> <br>
-          {{cocktail.Name}} - {{cocktail.Price}}€ <br>
-          <input type="number" v-model="cocktail.quantity" class="quantityInput">
+        <div
+          class="cocktailCard"
+          v-for="cocktail in cocktails"
+          :key="cocktail.ID"
+        >
+          <img :src="cocktail.Photo" alt="" /> <br />
+          {{ cocktail.Name }} - {{ cocktail.Price }}€ <br />
+          <input
+          min="0"
+          max="10"
+            type="number"
+            v-model="cocktail.quantity"
+            class="quantityInput"
+          />
         </div>
       </div>
-      <div class="addition">
-        aa
-        <p v-for="(cocktail, index) in orderedCocktails" :key="index">{{cocktail.Name}} x {{cocktail.quantity}} => {{cocktail.quantity * cocktail.Price }}</p>
-      </div>
+        <p class="card-text" v-for="(cocktail, index) in orderedCocktails" :key="index">
+          {{ cocktail.Name }} x {{ cocktail.quantity }} =>
+          {{ cocktail.quantity * cocktail.Price }}
+        </p>
     </div>
     <!-- <div id="orderCocktail">
       <div class="card-group">
@@ -86,7 +92,10 @@
       </div>
     </div> -->
 
-    <button class="btn btn-primary" @click="order">Commander</button>
+      <button class="btn btn-primary" @click="order" v-if="isSeated">
+        Commander
+      </button>
+   
   </div>
 </template>
 
@@ -96,7 +105,7 @@ import { Component, Vue } from "vue-property-decorator";
 import OrderService from "../services/OrderService";
 import TableService from "../services/TableService";
 import CocktailService from "../services/CocktailService";
-import {Table} from "../models/Table";
+import { Table } from "../models/Table";
 import { Cocktail } from "../models/Cocktail";
 
 @Component({})
@@ -109,14 +118,22 @@ export default class Orders extends Vue {
   private tableId = -1;
   private orderId = -1;
 
+
   async mounted() {
     this.tables = await TableService.findAll();
     this.cocktails = await CocktailService.findAll();
-    this.pseudo = this.localStorage.getItem("name") ? this.localStorage.getItem("name")! : "";
-    this.orderId = this.localStorage.getItem("commandeId") ? parseInt(this.localStorage.getItem("commandeId")!) : -1;
+    console.log(this.cocktails);
+    this.pseudo = this.localStorage.getItem("name")
+      ? this.localStorage.getItem("name")!
+      : "";
+    this.orderId = this.localStorage.getItem("commandeId")
+      ? parseInt(this.localStorage.getItem("commandeId")!)
+      : -1;
     console.log(this.orderId);
-    
-    this.tableId = this.localStorage.getItem("tableId") ? parseInt(this.localStorage.getItem("tableId")! ) : -1;
+
+    this.tableId = this.localStorage.getItem("tableId")
+      ? parseInt(this.localStorage.getItem("tableId")!)
+      : -1;
   }
 
   get isSeated(): boolean {
@@ -124,8 +141,14 @@ export default class Orders extends Vue {
   }
 
   async seatPerson(e: any): Promise<void> {
-    e.preventDefault()    
-    this.orderId = (await OrderService.createOrder({TableID: this.tableId, PeopleName: this.pseudo, Complete: false})).ID;
+    e.preventDefault();
+    this.orderId = (
+      await OrderService.createOrder({
+        TableID: this.tableId,
+        PeopleName: this.pseudo,
+        Complete: false,
+      })
+    ).ID;
   }
 
   getOrderId() {
@@ -155,15 +178,23 @@ export default class Orders extends Vue {
     }
   }
 
-    
-
   async order() {
-    this.orderedCocktails =  this.orderedCocktails.concat(this.cocktails.filter(c => c.quantity !== undefined && c.quantity > 0));
+    this.orderedCocktails = this.orderedCocktails.concat(
+      this.cocktails.filter((c) => c.quantity !== undefined && c.quantity > 0)
+    );
+
 
     // console.log(this.orderedCocktails);
-    
-    await OrderService.order({orderId: this.orderId, cocktails: this.cocktails.filter(c => c.quantity !== undefined && c.quantity > 0).map(c => { return {quantity: c.quantity, cocktailId: c.ID}})})
-    console.log("", [...this.orderedCocktails])
+
+    await OrderService.order({
+      orderId: this.orderId,
+      cocktails: this.cocktails
+        .filter((c) => c.quantity !== undefined && c.quantity > 0)
+        .map((c) => {
+          return { quantity: c.quantity, cocktailId: c.ID };
+        }),
+    });
+    console.log("", [...this.orderedCocktails]);
   }
   // setTable() {
   //   this.localStorage.setItem("pseudo", this.pseudo!);
@@ -182,9 +213,7 @@ export default class Orders extends Vue {
 <style lang="scss" scoped>
 .flexCocktails {
   display: flex;
-    flex-wrap: wrap;
-  
-  
+  flex-wrap: wrap;
 }
 
 .cocktailCard {
@@ -200,7 +229,7 @@ export default class Orders extends Vue {
   .quantityInput {
     width: 50%;
     margin-bottom: 5px;
-    border:  dotted 3px gray;
+    border: dotted 3px gray;
     text-align: center;
   }
 }

@@ -1,9 +1,11 @@
-import { orderCocktails, newOrder, getAllOrders, deliverOrder,  } from '@/api/OrderApi';
-import  { CocktailToOrder }  from '../models/Order';
-import {TablePeople} from '../models/Table';
+import { orderCocktails, newOrder, getAllOrders, deliverOrder, getBills } from '@/api/OrderApi';
+import  { CocktailToOrder }  from '@/models/Order';
+import {TablePeople} from '@/models/Table';
 
 export default new class OrderService{
-    async createOrder(tablePeople: TablePeople): Promise<{ID: number}>{
+    
+    
+    async createOrder(tablePeople: TablePeople) {
         const commandeId = await newOrder(tablePeople);
         localStorage.setItem("pseudo", tablePeople.PeopleName);
 
@@ -23,5 +25,14 @@ export default new class OrderService{
     async wholeOrderReady(commandeId: number){
         await deliverOrder(commandeId);
     }
+
+    async getAll() {
+        return await getAllOrders();
+    }
+
+    async getBills(tableId: number) {
+        return await getBills(tableId)
+    }
+
 
 }
