@@ -40,7 +40,6 @@ class CocktailController {
         OrderedAt: c.OrderedAt,
       });
     }
-    console.log(fullDtoCocktails);
 
     return fullDtoCocktails;
   }

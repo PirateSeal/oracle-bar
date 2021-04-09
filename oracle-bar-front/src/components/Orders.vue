@@ -184,9 +184,10 @@ export default class Orders extends Vue {
     );
 
 
-    // console.log(this.orderedCocktails);
+    console.log(this.orderId);
 
     await OrderService.order({
+    
       orderId: this.orderId,
       cocktails: this.cocktails
         .filter((c) => c.quantity !== undefined && c.quantity > 0)

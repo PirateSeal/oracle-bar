@@ -23,6 +23,7 @@ export default new (class OrderService {
   }
 
   public async GetByTable(tableId: number): Promise<OrderDTO[]> {
+    
     return await Order.findAll({
       where: {
         TableID: {

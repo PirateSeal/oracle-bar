@@ -19,11 +19,14 @@ export default new (class CocktailService {
   public async FetchByOrder(orderId: number): Promise<CocktailOrderList[]> {
     return await CocktailOrderList.findAll({
         where: {
-            OrderId: {
-                [Op.and] : orderId
-            }
+            [Op.and]: [{OrderID: orderId}]
+           
         }
     });
+  }
+
+  public async FetchOneById(cocktailId: number): Promise<Cocktail> {
+      return await Cocktail.findByPk(cocktailId);
   }
 
 })();

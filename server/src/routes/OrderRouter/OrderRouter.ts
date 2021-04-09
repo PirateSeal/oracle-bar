@@ -65,6 +65,17 @@ class OrderRouter {
     });
 
 
+    this._router.get("/bill/:tableId", async function (req, res, next) {
+      try {
+        
+        
+       let order = await controller.GetBill(parseInt(req.params.tableId));
+        res.status(202).json(order);
+      } catch (e) {
+        res.status(404).json({ error: e.message });
+      }
+    });
+
     this._router.post("/command", async function (req, res, next) {
       try {
         let order = await controller.AddCocktailsToOrder(req.body);

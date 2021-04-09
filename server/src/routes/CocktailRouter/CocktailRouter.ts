@@ -3,7 +3,6 @@ import CocktailController from "../../controllers/CocktailController";
 import { CocktailOrderlDTO } from "../../dtos/Cocktail/CocktailOrderDTO";
 
 
-//TODO
 class CocktailRouter {
   private _controller = CocktailController;
 
