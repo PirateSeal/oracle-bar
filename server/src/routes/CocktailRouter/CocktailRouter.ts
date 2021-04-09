@@ -36,6 +36,25 @@ class CocktailRouter {
           res.status(500).json({ error: e.message });
         }
       });
+    
+
+      this._router.post('/delivery/:cocktailOrderId', async function(req, res, next) {
+        try {
+            await controller.setDelivered(parseInt(req.params.cocktailOrderId));
+            res.status(200).json({});
+          } catch (e) {
+            res.status(500).json({ error: e.message });
+          }
+      })
+
+      this._router.post('/ready/:cocktailOrderId', async function(req, res, next) {
+        try {
+            await controller.setReady(parseInt(req.params.cocktailOrderId));
+            res.status(200).json({});
+          } catch (e) {
+            res.status(500).json({ error: e.message });
+          }
+      })
   }
 }
 

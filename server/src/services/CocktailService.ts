@@ -16,6 +16,18 @@ export default new (class CocktailService {
     });
   }
 
+  public async setDelivered(cocktailOrderId: number): Promise<void> {
+    let cocktailOrder = (await CocktailOrderList.findByPk(cocktailOrderId));
+    cocktailOrder.Delivered = true;
+    await cocktailOrder.save()
+  }
+
+  public async setReady(cocktailOrderId: number): Promise<void> {
+    let cocktailOrder = (await CocktailOrderList.findByPk(cocktailOrderId));
+    cocktailOrder.Ready = true;
+    await cocktailOrder.save()
+  }
+
   public async FetchByOrder(orderId: number): Promise<CocktailOrderList[]> {
     return await CocktailOrderList.findAll({
         where: {

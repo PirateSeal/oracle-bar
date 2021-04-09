@@ -1,5 +1,6 @@
 import {
   AutoIncrement,
+  BelongsTo,
   Column,
   ForeignKey,
   Model,
@@ -20,9 +21,15 @@ export class CocktailOrderList extends Model {
   @Column
   OrderID: number;
 
+  @BelongsTo(() => Order)
+  Order: Order;
+
   @ForeignKey(() => Cocktail)
   @Column
   CocktailID: number;
+
+  @BelongsTo(() => Cocktail)
+  Cocktail: Cocktail;
 
   @Column
   Delivered: boolean;

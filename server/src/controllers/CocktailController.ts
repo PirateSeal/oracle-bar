@@ -1,6 +1,5 @@
 import ErrorHandler from "./ErrorHandler";
-import OrderService from "../services/OrderService";
-import { OrderDTO } from "../dtos/Order/OrderDTO";
+
 import { Order } from "../models/Order";
 import { TableInfo } from "../models/TableInfo";
 import { CocktailDTO } from "../dtos/Cocktail/CocktailDTO";
@@ -17,6 +16,15 @@ class CocktailController {
 
   async FetchAll(): Promise<CocktailDTO[]> {
     return await this._service.FetchAll();
+  }
+
+
+  async setDelivered(cocktailOrderId: number): Promise<void> {
+    await this._service.setDelivered(cocktailOrderId)
+  }
+
+  async setReady(cocktailOrderId: number): Promise<void> {
+    await this._service.setReady(cocktailOrderId)
   }
 
   async FetchNotDelivered(): Promise<CocktailOrderlDTO[]> {
