@@ -100,7 +100,7 @@ class OrderRouter {
     this._router.put("/complete/:id", async function (req, res, next) {
       try {
         await controller.completeOrder(parseInt(req.params.id));
-        res.status(204);
+        res.status(200).json({});
       } catch (e) {
         res.status(404).json({ error: e.message });
       }
