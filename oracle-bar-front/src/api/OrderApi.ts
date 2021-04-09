@@ -7,4 +7,5 @@ export const newOrder = async (tablePeople: TablePeople) => (await axiosInstance
 export const deliverOrder = async (commandeId: number) => (await axiosInstance.post('/order/deliver', commandeId)).data
 export const getAllOrders = async () => (await axiosInstance.get('/order')).data;
 
-export const getBills = async (tableId: number) => (await axiosInstance.get(`/order/bill/${tableId}`))
+export const getBills = async (tableId: number) => (await axiosInstance.get(`/order/bill/${tableId}`)).data;
+export const complete = async (orderId: number) => (await axiosInstance.put(`order/complete/${orderId}`)).data;

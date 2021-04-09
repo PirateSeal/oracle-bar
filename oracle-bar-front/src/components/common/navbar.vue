@@ -2,7 +2,7 @@
   <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
       <div class="container-fluid">
-        <a class="navbar-brand" href="/">Barocles</a>
+        <a class="navbar-brand" href="/">Bora Boracle</a>
 
         <router-link to="/order">
           <button type="button" class="btn btn-primary">
