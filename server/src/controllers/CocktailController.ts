@@ -21,8 +21,9 @@ class CocktailController {
 
   async FetchNotDelivered(): Promise<CocktailOrderlDTO[]> {
     let cocktails = await this._service.FetchAllNotDelivered();
+    
     let fullDtoCocktails: CocktailOrderlDTO[] = [];
-    cocktails.forEach(async (c) => {
+    for(let c of cocktails){
       let order = await Order.findByPk(c.OrderID);
       let table = await TableInfo.findByPk(order.TableID);
       let cocktail = await Cocktail.findByPk(c.CocktailID);
@@ -38,7 +39,9 @@ class CocktailController {
         Ready: c.Ready,
         OrderedAt: c.OrderedAt,
       });
-    });
+    }
+    console.log(fullDtoCocktails);
+
     return fullDtoCocktails;
   }
 }

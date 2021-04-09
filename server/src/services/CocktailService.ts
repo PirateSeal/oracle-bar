@@ -10,9 +10,8 @@ export default new (class CocktailService {
   public async FetchAllNotDelivered(): Promise<CocktailOrderList[]> {
     return await CocktailOrderList.findAll({
         where: {
-            Delivered: {
-                [Op.eq] : false
-            }
+            [Op.and]: [{Delivered: false}]
+           
         }
     });
   }
@@ -21,7 +20,7 @@ export default new (class CocktailService {
     return await CocktailOrderList.findAll({
         where: {
             OrderId: {
-                [Op.eq] : orderId
+                [Op.and] : orderId
             }
         }
     });

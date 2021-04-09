@@ -1,5 +1,5 @@
 import { orderCocktails, newOrder, getAllOrders, deliverOrder, getBills } from '@/api/OrderApi';
-import  { CocktailToOrder }  from '@/models/Order';
+import  { CocktailToOrder }  from '../models/Order';
 import {TablePeople} from '@/models/Table';
 
 export default new class OrderService{
