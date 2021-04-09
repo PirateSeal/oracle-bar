@@ -6,7 +6,7 @@ import ErrorHandler from "./controllers/ErrorHandler";
 import { Sequelize } from "sequelize-typescript";
 import swaggerUi from "swagger-ui-express";
 import * as swaggerDocument from "./swagger.json";
-var cors = require('cors')
+var cors = require("cors");
 
 dotenv.config({
   path: ".env",
@@ -34,13 +34,13 @@ db.authenticate()
   .then(() => console.log("Connected to database successfully"))
   .catch((err) => console.log("ERROR: " + err));
 
-db.sync({ force: true })
+db.sync()
   .then(() => console.log("Database sync complete"))
   .catch((err) => console.log("ERROR: " + err));
 
 const server = new Server();
 
-server.app.use(cors())
+server.app.use(cors());
 
 server.app.use(bp.json());
 server.app.use(bp.urlencoded({ extended: true }));
