@@ -30,7 +30,7 @@ export default new class OrderService{
         return await getAllOrders();
     }
 
-    async getBills(tableId: number) {
+    async getBills(tableId: number): Promise<any> {
         return await getBills(tableId)
     }
 

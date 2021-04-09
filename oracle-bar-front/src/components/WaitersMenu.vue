@@ -75,7 +75,7 @@
             <button
               type="submit"
               class="btn btn-danger"
-              @click="complete(order.orderId)"
+              @click="complete(order.orderID)"
             >
               Encaisser
             </button>
@@ -115,11 +115,15 @@ export default class WaitersMenu extends Vue {
 
   async getOrderList() {
     this.orders = await OrderService.getBills(this.selectedTable!.ID);
+    console.log(this.orders);
   }
+
   async complete(orderId: number) {
-    await OrderService.completeOrder(orderId);
-    await this.getOrderList();
-  }
+      let e = await OrderService.completeOrder(orderId);
+      console.log(e);
+      await this.getOrderList();
+    }
+  
 
   getTotal(cocktails: Array<Cocktail>) {
     let price = 0;

@@ -9,6 +9,7 @@ import CocktailService from "../services/CocktailService";
 import { debug } from "console";
 
 class OrderController {
+ 
   private _service = OrderService;
   private _cocktailOrderService = CocktailService;
 
@@ -76,6 +77,10 @@ class OrderController {
 
   async DeleteOneById(id: number): Promise<number> {
     return await this._service.DeleteOneById(id);
+  }
+
+  async completeOrder(arg0: number) {
+    await this._service.completeOder(arg0);
   }
 }
 

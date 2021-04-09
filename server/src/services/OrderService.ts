@@ -6,6 +6,7 @@ import { CocktailOrderList } from "../models/CocktailOrderList";
 import { Op } from "sequelize";
 
 export default new (class OrderService {
+ 
   public async FetchAll(): Promise<CreatedOrderDTO[]> {
     return await Order.findAll();
   }
@@ -28,6 +29,9 @@ export default new (class OrderService {
       where: {
         TableID: {
           [Op.eq]: tableId
+        },
+        Complete: {
+          [Op.eq]: false
         }
       }
     });
@@ -69,5 +73,12 @@ export default new (class OrderService {
         ID: id,
       },
     });
+  }
+
+  async completeOder(id: number) {
+    const order = await Order.findByPk(id);
+    order.Complete = !order.Complete;
+    await order.save();
+    
   }
 })();
