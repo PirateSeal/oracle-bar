@@ -80,7 +80,7 @@ class OrderController {
   }
 
   async completeOrder(arg0: number) {
-    await this._service.completeOder(arg0);
+    return await this._service.completeOder(arg0);
   }
 }
 

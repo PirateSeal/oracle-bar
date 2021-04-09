@@ -78,7 +78,6 @@ export default new (class OrderService {
   async completeOder(id: number) {
     const order = await Order.findByPk(id);
     order.Complete = !order.Complete;
-    await order.save();
-    
+    return await order.save();
   }
 })();

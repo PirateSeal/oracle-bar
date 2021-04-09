@@ -22,17 +22,15 @@
               <input
                 v-model="cocktail.Delivered"
                 type="checkbox"
-                class="custom-control-input"
                 @change="(e) => {updateDelireryStatus(cocktail.ID)}"
               />
             </div>
           </td>
           <td>
-            <div class="custom-control custom-switch">
+            <div class="custom-control">
               <input
                 v-model="cocktail.Ready"
                 type="checkbox"
-                class="custom-control-input"
                 @change="(e) => {updateReadyStatuts(cocktail.ID)}"
               />
             </div>
@@ -57,8 +55,6 @@ export default class OrderList extends Vue {
   }
 
   async updateDelireryStatus(orderCocktailId: number) {
-    console.log("hi");
-    
     await CocktailService.updateDelivery(orderCocktailId);
     await this.refresh();
   }
