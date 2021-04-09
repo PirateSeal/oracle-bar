@@ -142,13 +142,12 @@ export default class Orders extends Vue {
 
   async seatPerson(e: any): Promise<void> {
     e.preventDefault();
-    this.orderId = (
-      await OrderService.createOrder({
+    let response =await OrderService.createOrder({
         TableID: this.tableId,
         PeopleName: this.pseudo,
         Complete: false,
       })
-    ).ID;
+    this.orderId = response.order.ID;
   }
 
   getOrderId() {
@@ -195,7 +194,7 @@ export default class Orders extends Vue {
           return { quantity: c.quantity, cocktailId: c.ID };
         }),
     });
-    console.log("", [...this.orderedCocktails]);
+    
   }
   // setTable() {
   //   this.localStorage.setItem("pseudo", this.pseudo!);
