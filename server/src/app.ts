@@ -4,11 +4,15 @@ import express, { NextFunction, Request, Response } from "express";
 import MasterRouter from "./routes/MasterRouter";
 import ErrorHandler from "./controllers/ErrorHandler";
 import { Sequelize } from "sequelize-typescript";
-var cors = require('cors')
+import swaggerUi from "swagger-ui-express";
+import * as swaggerDocument from "./swagger.json";
+var cors = require("cors");
 
 dotenv.config({
   path: ".env",
 });
+
+const bp = require("body-parser");
 
 const db = new Sequelize({
   database: process.env.DB_NAME,
@@ -30,15 +34,18 @@ db.authenticate()
   .then(() => console.log("Connected to database successfully"))
   .catch((err) => console.log("ERROR: " + err));
 
-db.sync({ force: true })
+db.sync()
   .then(() => console.log("Database sync complete"))
   .catch((err) => console.log("ERROR: " + err));
 
 const server = new Server();
 
-server.app.use(cors())
+server.app.use(cors());
 
+server.app.use(bp.json());
+server.app.use(bp.urlencoded({ extended: true }));
 server.app.use("/api", server.router);
+server.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 server.app.use(
   (err: ErrorHandler, req: Request, res: Response, next: NextFunction) => {

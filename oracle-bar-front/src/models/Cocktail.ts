@@ -4,9 +4,16 @@ export interface CocktailQuantity {
 }
 
 export interface Cocktail {
-    cocktailId: number;
+    ID: number;
     name: string;
     price: number;
     description: string;
     photo: string;
+    quantity:number
+}
+
+export interface OrderToDeliver{
+    orderId: number;
+    orderPersonName: string;
+    cocktails: Array<Cocktail>
 }

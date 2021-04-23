@@ -1,10 +1,17 @@
-import { findAllCocktails, getCocktailsOrdered, prepareCocktail   } from "@/api/cocktailApi";
+import { findAllCocktails, getCocktailsOrdered, prepareCocktail, updateDeliveryAsync, updateReadyAsync   } from "@/api/CocktailApi";
 
-export default class CocktailService {
+export default new class CocktailService {
+  async updateReady(orderCocktailId: number) {
+   await updateReadyAsync(orderCocktailId)
+  }
 
-    async findAll() {
-      const cocktails =  await findAllCocktails();
-      return cocktails;
+  async updateDelivery(orderCocktailId: number) {
+    await updateDeliveryAsync(orderCocktailId);
+  }
+  
+  async findAll() {
+    const cocktails =  await findAllCocktails();
+    return cocktails;
   }
 
   async findAllOrderedCocktails() {

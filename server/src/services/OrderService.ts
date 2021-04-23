@@ -1,40 +1,83 @@
-import { CreateOrderDTO } from "../dtos/createOrderDTO";
-import { OrderDTO } from "../dtos/orderDTO";
+import { OrderDTO } from "../dtos/Order/OrderDTO";
+import { CreatedOrderDTO } from "../dtos/Order/CreatedOrderDTO";
 import { Order } from "../models/Order";
+import { OrderNewCocktailsDTO } from "../dtos/Order/OrderNewCocktailsDTO";
+import { CocktailOrderList } from "../models/CocktailOrderList";
+import { Op } from "sequelize";
 
 export default new (class OrderService {
-  public async CreateOne(model: CreateOrderDTO) {
-    return await Order.create({
-      people_name: model.people_name,
-      table_info: model.table_info,
-      complete: model.complete,
-    });
-  }
-
-  public async FetchAll() {
+ 
+  public async FetchAll(): Promise<CreatedOrderDTO[]> {
     return await Order.findAll();
   }
 
-  public async FetchById(id: number) {
+  public async FetchOneById(id: number): Promise<CreatedOrderDTO> {
     return await Order.findByPk(id);
   }
 
-  public async UpdateOne(model: OrderDTO) {
+  public async CreateOne(model: OrderDTO): Promise<CreatedOrderDTO> {
+    return await Order.create({
+      PeopleName: model.PeopleName,
+      TableID: model.TableID,
+      Complete: model.Complete,
+    });
+  }
+
+  public async GetByTable(tableId: number): Promise<OrderDTO[]> {
+    
+    return await Order.findAll({
+      where: {
+        TableID: {
+          [Op.eq]: tableId
+        },
+        Complete: {
+          [Op.eq]: false
+        }
+      }
+    });
+  }
+
+
+  public async AddCocktailToCommand(model: OrderNewCocktailsDTO) {
+ 
+    model.cocktails.forEach(async (c) => {
+      for(let i = 1; i <= c.quantity; i++)
+      
+        await CocktailOrderList.create({
+          OrderID: model.orderId,
+          CocktailID: c.cocktailId,
+          Delivered: false,
+          Ready: false,
+          OrderedAt: new Date(Date.now())
+        })
+    })
+  }
+
+  public async UpdateOneById(
+    id: number,
+    model: CreatedOrderDTO
+  ): Promise<[number, Order[]]> {
     return await Order.update(
       {
-        people_name: model.people_name,
-        table_info: model.table_info,
-        complete: model.complete,
+        PeopleName: model.PeopleName,
+        TableID: model.TableID,
+        Complete: model.Complete,
       },
-      { where: { id: model.id } }
+      { where: { ID: id } }
     );
   }
 
-  public DeleteOne(id: number) {
-    return Order.destroy({
+  public async DeleteOneById(id: number): Promise<number> {
+    return await Order.destroy({
       where: {
-        id: id,
+        ID: id,
       },
     });
+  }
+
+  async completeOder(id: number) {
+    const order = await Order.findByPk(id);
+    order.Complete = !order.Complete;
+    return await order.save();
   }
 })();
